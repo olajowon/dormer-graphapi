@@ -17,7 +17,7 @@ class Finder(object):
             body={
                 'query': {
                     'regexp': {
-                        'name': query.pattern.replace('.', '\\.').replace('*', '[a-z0-9_;:]*')
+                        'name': query.pattern.replace('.', '\\.').replace('*', '[-a-z0-9_;:]*')
                     }
                 }
             },
