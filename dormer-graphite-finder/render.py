@@ -35,12 +35,12 @@ class Reader:
 
     def fetch(self, start_time, end_time):
         tab_name = 't_%s' % hashlib.md5(self.metric.encode(encoding='utf-8')).hexdigest()
-        sql = '''SELECT LAST(value) FROM %s WHERE ts>=%d000 AND ts<=%d999 INTERVAL (1m) FILL (NULL);
+        sql = '''SELECT LAST(value) FROM %s WHERE ts>=%d000 AND ts<%d999 INTERVAL (1m) FILL (NULL);
         ''' % (tab_name, start_time, end_time)
-
         self.cursor.execute(sql)
         data = self.cursor.fetchall()
-        series = [val for _, val in data]
+        series = [val if val else val for _, val in data]
+
         time_info = start_time // 60 * 60, end_time // 60 * 60, 60
         return time_info, series
 
