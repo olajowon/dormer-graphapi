@@ -11,7 +11,6 @@ def start():
     print('#### start\n')
     os.system(f'cp -rf {PROJECT_DIR}/etc/graphite-api.yaml /etc/graphite-api.yaml')
     status = os.system(f'source {VENV_DIR}/bin/activate && cd {PROJECT_DIR} && '
-                       f'pip install {PROJECT_DIR}/packages/TDengine/ && '
                        f'pip install -r {PROJECT_DIR}/requirements.txt && '
                        f'uwsgi --ini {PROJECT_DIR}/uwsgi.ini')
     print('#### start %s\n' % ('successful' if status == 0 else 'failure'))
@@ -27,7 +26,6 @@ def restart():
     print('#### restart\n')
     os.system(f'cp -rf {PROJECT_DIR}/etc/graphite-api.yaml /etc/graphite-api.yaml')
     status = os.system(f'source {VENV_DIR}/bin/activate && '
-                       f'pip install {PROJECT_DIR}/packages/TDengine/ && '
                        f'pip install -r {PROJECT_DIR}/requirements.txt && '
                        f'uwsgi --reload /var/run/dormer-graphapi-uwsgi.pid')
     print('#### restart %s\n' % ('successful' if status == 0 else 'failure'))
@@ -40,7 +38,7 @@ def init():
 
 def pip():
     print('#### pip\n')
-    status = os.system(f'source {VENV_DIR}/bin/activate && pip install {PROJECT_DIR}/packages/TDengine/ && '
+    status = os.system(f'source {VENV_DIR}/bin/activate && '
               f'pip install -r {PROJECT_DIR}/requirements.txt')
     print('#### pip %s\n' % ('successful' if status == 0 else 'failure'))
 
